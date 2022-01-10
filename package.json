@@ -45,6 +45,7 @@
     "typechain": "^6.1.0"
   },
   "dependencies": {
+    "@chainlink/contracts": "^0.3.1",
     "hardhat-abi-exporter": "^2.3.0",
     "hardhat-etherscan": "^1.0.1",
     "yarn": "^1.22.17"

@@ -3,7 +3,6 @@ require("dotenv").config();
 import {task} from "hardhat/config";
 import "@nomiclabs/hardhat-waffle";
 import "@nomiclabs/hardhat-etherscan";
-import "hardhat-gas-reporter";
 import "solidity-coverage";
 import "hardhat-abi-exporter";
 import "@typechain/hardhat";
@@ -71,13 +70,6 @@ export default {
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
       gas: 1000 * 1000 * 1000 * 50,
     }
-  },
-  gasReporter: {
-    enabled: true,
-    currency: 'USD',
-    gasPrice: 55,
-    coinmarketcap: "71a0e4d4-2872-4441-8dda-97464b6d5e55",
-    token: 'ETH'
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
