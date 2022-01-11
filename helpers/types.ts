@@ -10,6 +10,17 @@ import {
 export const GWEI = BigNumber.from(1000 * 1000 * 1000);
 export const ETHER = GWEI.mul(GWEI);
 export const oldAaveOracleAddress: string = "0xA50ba011c48153De246E5192C8f9258A2ba79Ca9";
+export const lendingPoolAddressesProviderAddress: string = "0xB53C1a33016B2DC2fF3653530bfF1848a515c8c5";
+export const shortExecutorAddress: string = "0xEE56e2B3D491590B5b31738cC34d5232F378a8D5";
+export const wethAddress: string = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2";
+export const uniswapRouterAddress: string = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D ";
+
+export const whaleAddresses: string[] = [
+  "0x26a78D5b6d7a7acEEDD1e6eE3229b372A624d8b7",
+  "0x4da27a545c0c5b758a6ba100e3a049001de870f5",
+  "0xdD709cAE362972cb3B92DCeaD77127f7b8D58202",
+  "0x4a49985B14bD0ce42c25eFde5d8c379a48AB02F3",
+];
 
 export class OracleInput {
   assetName: string;

@@ -11,7 +11,12 @@ import {
   oracleInputs,
   oldAaveOracleAddress,
   ETHER,
+  whaleAddresses,
+  shortExecutorAddress,
+  wethAddress,
+  uniswapRouterAddress,
 } from "./types";
+
 
 export function checkDivergence(
   a: BigNumber,
@@ -115,4 +120,72 @@ export async function getEthPrice(
 ) {
   const oracle = await hre.ethers.getContractAt("AggregatorV2V3Interface", oracleAddress);
   return (await oracle.latestAnswer());
+}
+
+export async function getWhales(
+  whaleAddresses_: string[] = whaleAddresses,
+) {
+  const whales: Signer[] = [];
+  for(let i = 0; i < whaleAddresses_.length; i++) {
+    whales.push(await getImpersonatedSigner(whaleAddresses_[i]));
+  }
+  return whales;
+}
+
+export async function getImpersonatedSigner(
+  signer_: string,
+) {
+  await hre.network.provider.request({
+    method: "hardhat_impersonateAccount",
+    params: [signer_],
+  }); 
+  await hre.network.provider.send("hardhat_setBalance", [
+    signer_,
+    '0x21E19E0C9BAB2400000',
+  ]);
+  return await hre.ethers.getSigner(signer_);
+}
+
+export async function testHealthFactors(
+  owner: Signer, // Owner of the addresses provider
+  borrower: Signer, // an ETH funded borrower
+  lendingPool: Contract, 
+  lendingPoolAddressesProvider: Contract,
+  uniswapRouter: Contract,
+  oracles: Oracle[],
+) {
+  /**
+   * Randomly choose a collateral and borrow assets
+   * Acquire funds of each collateral asset from uniswap
+   * 
+   */
+  uniswapRouter.connect(borrower).swapExactETHForTokens();
+}
+
+export async function getWETH(
+  signer: Signer,
+  amount: BigNumber = ETHER.mul(100),
+  WETH: string = wethAddress,
+) {
+  const weth = await hre.ethers.getContractAt("IWETH9", WETH);
+  await weth.connect(signer).deposit({value: amount});
+  return weth;
+}
+
+export async function getUniswapRouter() {
+  return hre.ethers.getContractAt("UniswapV2Router02", uniswapRouterAddress);
+}
+
+export async function swap(
+  signer: Signer,
+  uniswapRouter: Contract,
+  tokenIn: string,
+  tokenOut: string,
+  amountIn: BigNumber,
+
+) {
+  if(tokenIn == "ETH") {
+
+  }
+  uniswapRouter.connect(signer).swapExactETHForTokens(tokenIn, tokenOut, amountIn);
 }

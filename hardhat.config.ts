@@ -1,11 +1,13 @@
 require("dotenv").config();
 
 import {task} from "hardhat/config";
+
+import "hardhat-abi-exporter";
+import "hardhat-etherscan-abi";
 import "@nomiclabs/hardhat-waffle";
 import "@nomiclabs/hardhat-etherscan";
-import "solidity-coverage";
-import "hardhat-abi-exporter";
 import "@typechain/hardhat";
+import "solidity-coverage";
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
